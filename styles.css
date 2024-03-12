@@ -1,0 +1,50 @@
+/* styles.css */
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Set the minimum height of the body to 100% of the viewport height */
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+}
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    flex: 1;
+    /* Allow the main content to grow and fill the remaining space */
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    margin-top: auto;
+    /* Push the footer to the bottom */
+}
