@@ -26,3 +26,23 @@ components.forEach(component => {
         currentIndex = componentOptions.indexOf(component.textContent);
     });
 });
+
+// Function to add a new row with three empty components
+function addRow() {
+    const mainContent = document.getElementById('main-content');
+    const newRow = document.createElement('div');
+    newRow.classList.add('row');
+
+    // Create and append three empty components to the new row
+    for (let i = 0; i < 3; i++) {
+        const emptyComponent = document.createElement('div');
+        emptyComponent.classList.add('component', 'empty');
+        emptyComponent.textContent = 'Empty';
+        newRow.appendChild(emptyComponent);
+    }
+
+    mainContent.appendChild(newRow);
+}
+
+// Event listener for the "Add Row" button
+document.getElementById('add-row').addEventListener('click', addRow);
