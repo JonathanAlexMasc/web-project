@@ -27,7 +27,11 @@ let server = http.createServer(function (req, res) {
             content = fs.readFileSync(path);
             contentType = 'text/css';
         }
-        // Add other file types as needed
+        // Serve JavaScript files
+        else if (extension === ".js") {
+            content = fs.readFileSync(path);
+            contentType = 'application/javascript';
+        }
 
         // Send response
         if (content) {
