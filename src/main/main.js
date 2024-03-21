@@ -1,58 +1,165 @@
-// Define initial component options
-const componentOptions = ['Empty', 'Pole', 'House'];
-let currentIndex = 0;
-let selectedComponent = null;
-
-// add listeners by default
-addListeners();
-
-// Function to change the component on click
-document.getElementById('change-component').addEventListener('click', function () {
-    if (selectedComponent) {
-        currentIndex = (currentIndex + 1) % componentOptions.length;
-        selectedComponent.textContent = componentOptions[currentIndex];
-        selectedComponent.className = `component ${componentOptions[currentIndex].toLowerCase()}`;
+// JavaScript Document
+// Helper class to handle the current location in the undo/redo list
+class History {
+    constructor() {
+        this.UndoRedos = [];
+        this.index = 0;
     }
-});
 
+    // New UndoRedo, remove everything after the current UndoRedo index
+    // and append the new function
+    executeAction(cmd) {
+        this.UndoRedos.length = this.index; // Trims length from 0 to index
+        this.UndoRedos.push(cmd);
+        this.index = this.UndoRedos.length;
+
+        // Run the UndoRedo and update
+        cmd.exec();
+        updateUI();
+    }
+
+    // Undo called. Call the undo function on the current UndoRedo and move back one
+    undoCmd() {
+        if (this.index > 0) {
+            var cmd = this.UndoRedos[this.index - 1];
+            cmd.undo();
+            this.index = this.index - 1;
+            updateUI();
+        }
+    }
+
+    // Redo called. Call the execution function on the current UndoRedo and move forward one
+    redoCmd() {
+        if (this.index < this.UndoRedos.length) {
+            var cmd = this.UndoRedos[this.index];
+            cmd.exec();
+            this.index = this.index + 1;
+            updateUI();
+        }
+    }
+
+    // Is undo available
+    canUndo() {
+        return this.index != 0;
+    }
+
+    // Is redo available
+    canRedo() {
+        return this.index < this.UndoRedos.length;
+    }
+}
+
+// Concrete UndoRedo class. Since we have undo and redo, we must have
+// an "action" (exec) function and an undo
+// Ideally, this should forward these calls onto the class that does the task
+class UndoRedo {
+    constructor(oldContent, newContent, componentClass) {
+        this.oldContent = oldContent;
+        this.newContent = newContent;
+        this.componentClass = componentClass;
+    }
+
+    // Changes the content of the component with the new content
+    exec() {
+        var components = document.getElementsByClassName(this.componentClass);
+        for (let component of components) {
+            component.innerHTML = this.newContent;
+        }
+    }
+
+    // Reverts the content of the component to the old content
+    undo() {
+        var components = document.getElementsByClassName(this.componentClass);
+        for (let component of components) {
+            component.innerHTML = this.oldContent;
+        }
+    }
+}
+
+// Map UndoRedos onto buttons
+function changeComponent(event) {
+    var componentClass = 'selected';
+    var oldContent = document.querySelector('.' + componentClass).innerHTML;
+    var currentContent = oldContent.trim(); // Trim whitespace
+    var newContent = '';
+
+    // Cycle between House, Pole, and Empty
+    if (currentContent === 'House') {
+        newContent = 'Pole';
+    } else if (currentContent === 'Pole') {
+        newContent = 'Empty';
+    } else { // Assume currentContent is Empty or any other value
+        newContent = 'House';
+    }
+
+    var cmd = new UndoRedo(oldContent, newContent, componentClass);
+    var selectedID = getSelectedComponentID();
+    var selectedHist = histories[selectedID];
+    selectedHist.executeAction(cmd);
+}
+
+// Toy version of the observer pattern
+function updateUI() {
+    var selectedID = getSelectedComponentID();
+    var selectedHist = histories[selectedID];
+    document.getElementById("undo").disabled = !selectedHist.canUndo();
+    document.getElementById("redo").disabled = !selectedHist.canRedo();
+}
+
+function undo() {
+    var selectedID = getSelectedComponentID();
+    var selectedHist = histories[selectedID];
+    selectedHist.undoCmd();
+}
+
+function redo() {
+    var selectedID = getSelectedComponentID();
+    var selectedHist = histories[selectedID];
+    selectedHist.redoCmd();
+}
+
+function getSelectedComponentID() {
+    var selectedComponent = document.querySelector('.selected');
+    if (selectedComponent) {
+        return selectedComponent.id;
+    }
+    return null; // Return null if no element with class "selected" is found
+}
+// Attach all functions to HTML elements
+window.onload = function () {
+    // Button click
+    document.getElementById("change-component").onclick = changeComponent;
+    document.getElementById("undo").onclick = undo;
+    document.getElementById("redo").onclick = redo;
+
+    initializeHistories();
+    updateUI();
+    addListeners();
+}
+
+
+// CONTROLLERS
 function addListeners() {
-    // Add event listeners to components for selection
     const components = document.querySelectorAll('.component');
     components.forEach(component => {
         component.addEventListener('click', function () {
-            // Remove 'selected' class from all components
-            components.forEach(comp => comp.classList.remove('selected'));
-            // Add 'selected' class to clicked component
+            components.forEach(comp => {
+                if (comp !== component) {
+                    comp.classList.remove('selected');
+                }
+            });
             component.classList.add('selected');
-            // Set the selected component
-            selectedComponent = component;
-            // Update currentIndex to the clicked component's index
-            currentIndex = componentOptions.indexOf(component.textContent);
+            updateUI();
         });
     });
 }
 
+var histories = {};
 
-// Function to add a new row with three empty components
-function addRow() {
-    const mainContent = document.getElementById('main-content');
-    const newRow = document.createElement('div');
-    newRow.classList.add('row');
-
-    // Create and append three empty components to the new row
-    for (let i = 0; i < 3; i++) {
-        const emptyComponent = document.createElement('div');
-        emptyComponent.classList.add('component', 'empty');
-        emptyComponent.textContent = 'Empty';
-        newRow.appendChild(emptyComponent);
-    }
-
-    mainContent.appendChild(newRow);
-
-
-    addListeners();
+function initializeHistories() {
+    const components = document.querySelectorAll('.component');
+    components.forEach(component => {
+        const componentId = component.id;
+        histories[componentId] = new History();
+    });
 }
-
-// Event listener for the "Add Row" button
-document.getElementById('add-row').addEventListener('click', addRow);
-

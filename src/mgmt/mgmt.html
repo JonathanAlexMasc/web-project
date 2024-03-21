@@ -21,19 +21,28 @@
         </nav>
     </header>
     <main>
-        <section id="upload-section">
-            <h2>Upload File</h2>
-            <!-- Add file upload input and button here -->
-        </section>
-        <section id="server-files-section">
-            <h2>Server Files</h2>
-            <div class="file">
-                <span>File Name</span>
-                <button class="download-btn">Download</button>
-                <button class="load-btn">Load</button>
-            </div>
-            <!-- Additional file entries will be dynamically added -->
-        </section>
+        <h1>File Management</h1>
+
+        <!-- Display available files -->
+        <h2>Available Files:</h2>
+        <ul id="file-list">
+            <!-- List of available files will be dynamically added here -->
+        </ul>
+
+        <!-- Upload file form -->
+        <h2>Upload File:</h2>
+        <input type="file" id="file-input">
+        <button onclick="uploadFile()">Upload</button>
+
+        <!-- Load file form -->
+        <h2>Load File:</h2>
+        <input type="file" id="load-file-input">
+        <button onclick="loadFile()">Load</button>
+
+        <!-- Create downloadable file -->
+        <h2>Create Downloadable File:</h2>
+        <label for="file-content"></label><textarea id="file-content" rows="5" cols="50" placeholder="Enter file content..."></textarea>
+        <button onclick="createDownloadableFile()">Create Downloadable File</button>
     </main>
     <footer>
         <p>&copy; 2023 File Management System</p>
