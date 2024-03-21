@@ -2,10 +2,10 @@
  * INITIAL VARIABLES
  */
 var histories = {};
-var compID = 3;
+var compID = 1;
 const addRowButton = document.getElementById('add-row');
-
-
+const resetButton = document.getElementById('reset');
+const allPolesButton = document.getElementById('all-poles');
 
 
 // JavaScript Document
@@ -152,12 +152,42 @@ function addListeners() {
     });
 }
 
-function initializeHistories() {
-    const components = document.querySelectorAll('.component');
-    components.forEach(component => {
-        const componentId = component.id;
-        histories[componentId] = new History();
-    });
+function initializeRows() {
+    // Create a new row div
+    const newRow = document.createElement('div');
+    newRow.classList.add('row');
+
+    // Create three component divs and append them to the new row
+    for (let i = 0; i < 3; i++) {
+        const newComponent = document.createElement('div');
+        newComponent.classList.add('component');
+        newComponent.textContent = 'Empty';
+
+        // assign ID
+        newComponent.id = compID.toString();
+
+        // create a new history for it and add to histories map
+        histories[compID] = new History();
+
+        // increment id
+        compID = compID + 1
+
+        // add this new comp to row
+        newRow.appendChild(newComponent);
+    }
+
+    // Set the first component in the first row to be selected
+    newRow.firstElementChild.classList.add('selected');
+
+    // Append the new row to the main content section
+    const mainContent = document.getElementById('main-content');
+    mainContent.appendChild(newRow);
+
+    // add listeners for each component
+    addListeners();
+
+    // update UI
+    updateUI();
 }
 
 
@@ -176,11 +206,15 @@ addRowButton.addEventListener('click', function() {
         const newComponent = document.createElement('div');
         newComponent.classList.add('component');
         newComponent.textContent = 'Empty';
-        compID = compID + 1
+
+        // assign ID
         newComponent.id = compID.toString();
 
         // create a new history for it and add to histories map
         histories[compID] = new History();
+
+        // increment ID
+        compID = compID + 1
 
         // add this new comp to row
         newRow.appendChild(newComponent);
@@ -197,6 +231,104 @@ addRowButton.addEventListener('click', function() {
     updateUI();
 });
 
+/*
+ * RESET LISTENER
+ */
+resetButton.addEventListener('click', function() {
+    // Get a reference to the main content
+    const mainContent = document.getElementById('main-content');
+
+    // Clear existing content
+    mainContent.innerHTML = '';
+
+    // reset ID
+    compID = 1;
+
+    // reset histories
+    histories = {}
+
+    // Set up initial content with one row of all empty components
+    const newRow = document.createElement('div');
+    newRow.classList.add('row');
+
+    for (let j = 1; j <= 3; j++) {
+        const newComponent = document.createElement('div');
+        newComponent.classList.add('component');
+        newComponent.textContent = 'Empty';
+
+        // assign id
+        newComponent.id = compID.toString();
+
+        // add a history
+        histories[compID] = new History();
+
+        // update ID
+        compID += 1;
+
+        newRow.appendChild(newComponent);
+    }
+
+    // Set the first component in the first row to be selected
+    newRow.firstElementChild.classList.add('selected');
+
+    // Append the new row to the main content
+    mainContent.appendChild(newRow);
+
+    addListeners();
+    updateUI();
+});
+
+/*
+ * ALL POLES
+ */
+allPolesButton.addEventListener('click', function () {
+    // Get a reference to the main content
+    const mainContent = document.getElementById('main-content');
+
+    // Clear existing content
+    mainContent.innerHTML = '';
+
+    // reset ID
+    compID = 1;
+
+    // reset histories
+    histories = {}
+
+    // Create two rows with all poles
+    for (let i = 0; i < 2; i++) {
+        const newRow = document.createElement('div');
+        newRow.classList.add('row');
+
+        for (let j = 1; j <= 3; j++) {
+            const newComponent = document.createElement('div');
+            newComponent.classList.add('component');
+            newComponent.textContent = 'Pole';
+
+            // assign id
+            newComponent.id = compID.toString();
+
+            // add a history
+            histories[compID] = new History();
+
+            // update ID
+            compID += 1;
+
+            // add this component to the row
+            newRow.appendChild(newComponent);
+        }
+
+        // Set the first component in the first row to be selected
+        if (i === 0) {
+            newRow.firstElementChild.classList.add('selected');
+        }
+
+        mainContent.appendChild(newRow);
+    }
+
+    addListeners();
+    updateUI();
+});
+
 
 /*
  * ENTRY POINT FOR THIS FILE
@@ -208,7 +340,5 @@ window.onload = function () {
     document.getElementById("undo").onclick = undo;
     document.getElementById("redo").onclick = redo;
 
-    initializeHistories();
-    updateUI();
-    addListeners();
+    initializeRows();
 }
