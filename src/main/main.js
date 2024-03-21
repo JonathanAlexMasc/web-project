@@ -53,29 +53,33 @@ class History {
 // an "action" (exec) function and an undo
 // Ideally, this should forward these calls onto the class that does the task
 class UndoRedo {
-    constructor(oldContent, newContent, componentId) {
+    constructor(oldContent, newContent, componentClass) {
         this.oldContent = oldContent;
         this.newContent = newContent;
-        this.componentId = componentId;
+        this.componentClass = componentClass;
     }
 
     // Changes the content of the component with the new content
     exec() {
-        var component = document.getElementById(this.componentId);
-        component.innerHTML = this.newContent;
+        var components = document.getElementsByClassName(this.componentClass);
+        for (let component of components) {
+            component.innerHTML = this.newContent;
+        }
     }
 
     // Reverts the content of the component to the old content
     undo() {
-        var component = document.getElementById(this.componentId);
-        component.innerHTML = this.oldContent;
+        var components = document.getElementsByClassName(this.componentClass);
+        for (let component of components) {
+            component.innerHTML = this.oldContent;
+        }
     }
 }
 
 // Map UndoRedos onto buttons
 function changeComponent(event) {
-    var componentID = 'selected'
-    var oldContent = document.getElementById(componentID).innerHTML;
+    var componentClass = 'selected';
+    var oldContent = document.querySelector('.' + componentClass).innerHTML;
     var currentContent = oldContent.trim(); // Trim whitespace
     var newContent = '';
 
@@ -88,27 +92,39 @@ function changeComponent(event) {
         newContent = 'House';
     }
 
-    var cmd = new UndoRedo(oldContent, newContent, componentID);
-    hist.executeAction(cmd);
+    var cmd = new UndoRedo(oldContent, newContent, componentClass);
+    var selectedID = getSelectedComponentID();
+    var selectedHist = histories[selectedID];
+    selectedHist.executeAction(cmd);
 }
 
 // Toy version of the observer pattern
 function updateUI() {
-    document.getElementById("undo").disabled = !hist.canUndo();
-    document.getElementById("redo").disabled = !hist.canRedo();
+    var selectedID = getSelectedComponentID();
+    var selectedHist = histories[selectedID];
+    document.getElementById("undo").disabled = !selectedHist.canUndo();
+    document.getElementById("redo").disabled = !selectedHist.canRedo();
 }
 
-// Our undo/redo helper class
-var hist = new History();
-
 function undo() {
-    hist.undoCmd();
+    var selectedID = getSelectedComponentID();
+    var selectedHist = histories[selectedID];
+    selectedHist.undoCmd();
 }
 
 function redo() {
-    hist.redoCmd();
+    var selectedID = getSelectedComponentID();
+    var selectedHist = histories[selectedID];
+    selectedHist.redoCmd();
 }
 
+function getSelectedComponentID() {
+    var selectedComponent = document.querySelector('.selected');
+    if (selectedComponent) {
+        return selectedComponent.id;
+    }
+    return null; // Return null if no element with class "selected" is found
+}
 // Attach all functions to HTML elements
 window.onload = function () {
     // Button click
@@ -116,8 +132,8 @@ window.onload = function () {
     document.getElementById("undo").onclick = undo;
     document.getElementById("redo").onclick = redo;
 
+    initializeHistories();
     updateUI();
-
     addListeners();
 }
 
@@ -129,11 +145,21 @@ function addListeners() {
         component.addEventListener('click', function () {
             components.forEach(comp => {
                 if (comp !== component) {
-                    comp.removeAttribute('id');
+                    comp.classList.remove('selected');
                 }
             });
-            component.id = 'selected';
+            component.classList.add('selected');
+            updateUI();
         });
     });
 }
 
+var histories = {};
+
+function initializeHistories() {
+    const components = document.querySelectorAll('.component');
+    components.forEach(component => {
+        const componentId = component.id;
+        histories[componentId] = new History();
+    });
+}
