@@ -1,3 +1,13 @@
+/*
+ * INITIAL VARIABLES
+ */
+var histories = {};
+var compID = 3;
+const addRowButton = document.getElementById('add-row');
+
+
+
+
 // JavaScript Document
 // Helper class to handle the current location in the undo/redo list
 class History {
@@ -125,18 +135,6 @@ function getSelectedComponentID() {
     }
     return null; // Return null if no element with class "selected" is found
 }
-// Attach all functions to HTML elements
-window.onload = function () {
-    // Button click
-    document.getElementById("change-component").onclick = changeComponent;
-    document.getElementById("undo").onclick = undo;
-    document.getElementById("redo").onclick = redo;
-
-    initializeHistories();
-    updateUI();
-    addListeners();
-}
-
 
 // CONTROLLERS
 function addListeners() {
@@ -154,12 +152,63 @@ function addListeners() {
     });
 }
 
-var histories = {};
-
 function initializeHistories() {
     const components = document.querySelectorAll('.component');
     components.forEach(component => {
         const componentId = component.id;
         histories[componentId] = new History();
     });
+}
+
+
+/*
+ * ADD ROWS LISTENER
+ */
+
+// Add an event listener to the add-row button
+addRowButton.addEventListener('click', function() {
+    // Create a new row div
+    const newRow = document.createElement('div');
+    newRow.classList.add('row');
+
+    // Create three component divs and append them to the new row
+    for (let i = 0; i < 3; i++) {
+        const newComponent = document.createElement('div');
+        newComponent.classList.add('component');
+        newComponent.textContent = 'Empty';
+        compID = compID + 1
+        newComponent.id = compID.toString();
+
+        // create a new history for it and add to histories map
+        histories[compID] = new History();
+
+        // add this new comp to row
+        newRow.appendChild(newComponent);
+    }
+
+    // Append the new row to the main content section
+    const mainContent = document.getElementById('main-content');
+    mainContent.appendChild(newRow);
+
+    // add listeners for each component
+    addListeners();
+
+    // update UI
+    updateUI();
+});
+
+
+/*
+ * ENTRY POINT FOR THIS FILE
+ */
+
+window.onload = function () {
+    // Button click
+    document.getElementById("change-component").onclick = changeComponent;
+    document.getElementById("undo").onclick = undo;
+    document.getElementById("redo").onclick = redo;
+
+    initializeHistories();
+    updateUI();
+    addListeners();
 }
