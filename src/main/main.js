@@ -6,7 +6,7 @@ var compID = 1;
 const addRowButton = document.getElementById('add-row');
 const resetButton = document.getElementById('reset');
 const allPolesButton = document.getElementById('all-poles');
-
+const mixedButton = document.getElementById('mixed');
 
 // JavaScript Document
 // Helper class to handle the current location in the undo/redo list
@@ -329,6 +329,64 @@ allPolesButton.addEventListener('click', function () {
     updateUI();
 });
 
+/*
+ * MIXED Button
+ */
+mixedButton.addEventListener('click', function () {
+    // Get a reference to the main content
+    const mainContent = document.getElementById('main-content');
+
+    // Clear existing content
+    mainContent.innerHTML = '';
+
+    // reset ID
+    compID = 1;
+
+    // reset histories
+    histories = {}
+
+    // mixed arr
+    const mixedArray = [['Empty', 'Empty', 'Pole'],
+        ['House', 'Empty', 'House'],
+        ['Pole', 'House', 'Pole'],
+    ];
+
+    // Create rows using custom 2D array values
+    mixedArray.forEach((rowArray, rowIndex) => {
+        const newRow = document.createElement('div');
+        newRow.classList.add('row');
+
+        // Traverse through the row array
+        rowArray.forEach((text, columnIndex) => {
+            const newComponent = document.createElement('div');
+            newComponent.classList.add('component');
+            newComponent.textContent = text;
+
+            // Assign ID
+            newComponent.id = compID.toString();
+
+            // Add a history
+            histories[compID] = new History();
+
+            // Update ID
+            compID += 1;
+
+            // Add this component to the row
+            newRow.appendChild(newComponent);
+
+            // Set the first component in the first row to be selected
+            if (rowIndex === 0 && columnIndex === 0) {
+                newComponent.classList.add('selected');
+            }
+        });
+
+        // Append the new row to the main content
+        mainContent.appendChild(newRow);
+    })
+
+    addListeners();
+    updateUI();
+});
 
 /*
  * ENTRY POINT FOR THIS FILE
