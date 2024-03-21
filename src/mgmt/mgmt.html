@@ -23,26 +23,41 @@
     <main>
         <h1>File Management</h1>
 
-        <!-- Display available files -->
-        <h2>Available Files:</h2>
-        <ul id="file-list">
-            <!-- List of available files will be dynamically added here -->
-        </ul>
+        <!--basic structure for a file uploads-->
+        <form action="upload" method="post" enctype="multipart/form-data">
+            Select file to upload:
 
-        <!-- Upload file form -->
-        <h2>Upload File:</h2>
-        <input type="file" id="file-input">
-        <button onclick="uploadFile()">Upload</button>
+            <!--name and id are used as identifiers of the file on the server side-->
+            <input type="file" name="fileToUpload">
+            <input type="submit">
+        </form>
 
-        <!-- Load file form -->
-        <h2>Load File:</h2>
-        <input type="file" id="load-file-input">
-        <button onclick="loadFile()">Load</button>
 
-        <!-- Create downloadable file -->
-        <h2>Create Downloadable File:</h2>
-        <label for="file-content"></label><textarea id="file-content" rows="5" cols="50" placeholder="Enter file content..."></textarea>
-        <button onclick="createDownloadableFile()">Create Downloadable File</button>
+        <!-- if clicked, make a file download popup-->
+        <script>
+            //Script is local to make is easy to see
+
+
+            //html side
+            function download() {
+                //Has to be a separate “page”
+                //this make a URL of root/download
+                // NodeJS’s routes figure out it is to serve a file
+                // instead of html page.
+                window.location.href = "download"
+            }
+
+            function selectedDownload() {
+                //Has to be a separate “page”
+                //this make a URL of root/download
+                // NodeJS’s routes figure out it is to serve a file
+                // instead of html page.
+                window.location.href = "uploads/hidden.txt"
+            }
+        </script>
+        <button onClick="download()">Download</button>
+        <button onClick="selectedDownload()">Selected Download</button>
+        <br>
     </main>
     <footer>
         <p>&copy; 2023 File Management System</p>
