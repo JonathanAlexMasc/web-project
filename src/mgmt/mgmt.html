@@ -32,19 +32,20 @@
     </div>
 
     <div class="file-display">
-        <div class="list-files">
-            <!-- Display a list of files on the server -->
-            <!-- template to show current file list-->
-            <p>Current files:</p>
-            <ul>
-                {{#filelist}}
-                <li>{{.}}</li>
-                {{/filelist}}
-            </ul>
-        </div>
-        <div class="read-download">
-            <button onClick="readFile()">Read File</button>
-        </div>
+        <h4>File currently on Render's server!</h4>
+        <ul class="list-files">
+            {{#filelist}}
+            <li>
+                <span>{{.}}</span>
+                <button onClick="readFile()">Load File</button>
+                <button onClick="download()">Download File</button>
+            </li>
+            {{/filelist}}
+        </ul>
+    </div>
+
+
+    <div class="file-contents-display">
         <h4>Below is the contents of your file!</h4>
         <p>{{{read}}}</p>
     </div>
