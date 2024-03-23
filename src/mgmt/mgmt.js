@@ -6,7 +6,7 @@ const path = require("path");
 
 var hiddenFolder = "./uploads"
 var folder = "./tmp"
-var location = folder + '/test.txt';
+var location = folder + "/temp.txt";
 function pullData(data){
 
     //if no files yet, stop processing
@@ -44,8 +44,6 @@ function load(req, res, params){
 
     try{
         let url =  path.join(__dirname,"mgmt.html");
-        console.log("here")
-        console.log("URL", url)
         let content = fs.readFileSync(url);
         var output = Mustache.render(content.toString(), data);
 
@@ -65,10 +63,12 @@ function init(app, urlRoot = "/") {
     //override default location
     folder = path.join(__dirname, folder);
     hiddenFolder = path.join(__dirname, hiddenFolder);
-    location = folder + '/test.txt';
+    location = folder + '/temp.txt';
 
     app.get( urlRoot + "mgmt/read", function(req, res) {
         var data = getParams(req);
+        console.log(location)
+        console.log(fs.existsSync(location))
         if(fs.existsSync(location)) {
             var file = fs.readFileSync(location);
             data["read"] = file.toString().replaceAll("\n", "<br>");
@@ -79,7 +79,7 @@ function init(app, urlRoot = "/") {
 
     app.get(  urlRoot + "mgmt/download", function(req, res) {
         var path = location;
-        var nameOfDownloadedFile = "a.txt";
+        var nameOfDownloadedFile = "temp.txt";
 
         res.download(path, nameOfDownloadedFile);
     });
@@ -108,7 +108,7 @@ function init(app, urlRoot = "/") {
         load(req,res);
     });
 
-    app.post(  urlRoot + "mgmt/upload", function(req, res) {
+    app.post(urlRoot + "mgmt/upload", function(req, res) {
         var form = new formidable.IncomingForm();
 
         //these next three lines are optional, but a good idea
@@ -116,18 +116,18 @@ function init(app, urlRoot = "/") {
         form.maxFileSize = 50 * 1024 * 1024; // 5MB
         form.uploadDir = folder;
 
-        form.parse(req, function (err, fields, files) {
+        form.parse(req, function(err, fields, files) {
             if (err != null) {
                 console.log(err)
-            }
-            else{
+            } else {
                 var oldpath = files.fileToUpload[0].filepath;
-                var newpath = folder + "/" + files.fileToUpload[0].originalFilename;
-                fs.rename(oldpath, newpath, function (err) {
-                    if(err){
+                var newpath = folder + "/" + "temp.txt";
+                fs.rename(oldpath, newpath, function(err) {
+                    if (err) {
                         console.log(err);
+                    } else {
+                        console.log('File replaced successfully.');
                     }
-                    //no error? all good, and all done!
                 });
             }
             res.redirect(urlRoot + "mgmt/mgmt.html");
@@ -135,13 +135,14 @@ function init(app, urlRoot = "/") {
 
     });
 
+
+
     app.get(  urlRoot+ "mgmt/uploads/:file", function(req, res) {
         var path = hiddenFolder + "/" + req.params.file;
         res.download(path);
 
     });
 }
-
 
 function runPage(req, res) {
     load(req,res)

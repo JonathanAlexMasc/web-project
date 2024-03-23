@@ -1,53 +1,55 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>File test</title>
-    <link rel="stylesheet" href="mgmt.css">
-    <script src="scripts.js" defer></script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>File test</title>
+        <link href="mgmt.css" rel="stylesheet">
+        <script defer src="scripts.js"></script>
+    </head>
 
-<body>
-<header>
-    <h1>If I fits, I sits</h1>
-    <nav>
-        <ul>
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="../main/main.html">Main Page</a></li>
-            <li><a href="../mgmt/mgmt.html">File Management</a></li>
-            <li><a href="../help/help.html">Help/Grading Aid</a></li>
-        </ul>
-    </nav>
-</header>
+    <body>
 
-<!--basic structure for a file uploads-->
-<form action="upload" enctype="multipart/form-data" method="post">
-    Select file to upload:
+    <header>
+        <h1>If I fits, I sits</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../main/main.html">Main Page</a></li>
+                <li><a href="../mgmt/mgmt.html">File Management</a></li>
+                <li><a href="../help/help.html">Help/Grading Aid</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!--name and id are used as identifiers of the file on the server side-->
-    <input name="fileToUpload" type="file">
-    <input type="submit">
-</form>
+    <div class="form-upload">
+        <!--basic structure for a file uploads-->
+        <form action="upload" enctype="multipart/form-data" method="post">
+            Select file to upload:
 
-<button onClick="download()">Download</button>
-<button onClick="selectedDownload()">Selected Download</button>
-<br>
+            <!--name and id are used as identifiers of the file on the server side-->
+            <input name="fileToUpload" type="file">
+            <input type="submit">
+        </form>
+    </div>
 
-<button onClick="writeFile()">Write File by appending 1,2,3,4,5 and stuff</button>
-<br>
+    <div class="file-display">
+        <div class="list-files">
+            <!-- Display a list of files on the server -->
+            <!-- template to show current file list-->
+            <p>Current files:</p>
+            <ul>
+                {{#filelist}}
+                <li>{{.}}</li>
+                {{/filelist}}
+            </ul>
+        </div>
+        <div class="read-download">
+            <button onClick="readFile()">Read File</button>
+        </div>
+        <h4>Below is the contents of your file!</h4>
+        <p>{{{read}}}</p>
+    </div>
 
-<button onClick="readFile()">Read File</button>
-<p>{{{read}}}</p>
-
-
-<!-- template to show current file list-->
-<p>Current files:</p>
-<ul>
-    {{#filelist}}
-    <li>{{.}}</li>
-    {{/filelist}}
-</ul>
-
-</body>
+    </body>
 </html>
 
 

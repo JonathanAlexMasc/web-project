@@ -32,55 +32,65 @@ nav ul li a {
     color: #fff;
 }
 
-.content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    /* Add flex-grow to ensure the content takes up remaining space */
+.form-upload {
+    background-color: #f9f9f9; /* Light gray background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px; /* Padding around the content */
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center children horizontally */
+    text-align: center; /* Center text */
 }
 
-.buttons-container {
-    display: flex; /* Flexbox container */
-    justify-content: center; /* Center align the buttons horizontally */
-    margin-top: 20px; /* Adjust margin as needed */
+.form-upload form {
+    /* Add any specific styling for the form if needed */
 }
 
-.buttons-container button {
-    margin-left: 10px;
+/* mgmt-style.css */
+
+.file-display {
+    background-color: #f9f9f9; /* Light gray background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px; /* Padding around the content */
+    margin-bottom: 20px; /* Spacing at the bottom */
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center children horizontally */
+    text-align: center; /* Center text */
 }
 
-input[type="file"] {
-    display: block;
-    margin-bottom: 15px;
+.file-display p {
+    font-size: 16px; /* Larger font size for the paragraph */
+    color: #333; /* Dark text color */
+    margin-bottom: 10px; /* Spacing below the paragraph */
 }
 
-input[type="submit"],
-button {
-    background-color: #4caf50;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.file-display ul {
+    list-style: none; /* Remove default list styles */
+    padding: 0; /* Remove default padding */
 }
 
-input[type="submit"]:hover,
-button:hover {
-    background-color: #45a049;
+.file-display li {
+    font-size: 14px; /* Smaller font size for list items */
+    color: #666; /* Medium gray text color */
+    margin-bottom: 5px; /* Spacing between list items */
 }
 
-p {
-    margin-top: 20px;
-    font-size: 16px;
+.file-display li:last-child {
+    margin-bottom: 0; /* Remove margin bottom for the last list item */
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+.file-display a {
+    color: #007bff; /* Link color (blue) */
+    text-decoration: none;
+    transition: color 0.3s ease; /* Smooth color transition on hover */
 }
 
-li {
-    margin-bottom: 5px;
+.file-display a:hover {
+    color: #0056b3; /* Darker blue on hover */
 }
+
+
+
