@@ -1,67 +1,54 @@
-<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Management</title>
+    <title>File test</title>
     <link rel="stylesheet" href="mgmt.css">
+    <script src="scripts.js" defer></script>
 </head>
 
 <body>
-    <header>
-        <h1>File Management</h1>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../main/main.html">Main Page</a></li>
-                <li><a href="../mgmt/mgmt.html">File Management</a></li>
-                <li><a href="../help/help.html">Help/Grading Aid</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <h1>File Management</h1>
+<header>
+    <h1>If I fits, I sits</h1>
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../main/main.html">Main Page</a></li>
+            <li><a href="../mgmt/mgmt.html">File Management</a></li>
+            <li><a href="../help/help.html">Help/Grading Aid</a></li>
+        </ul>
+    </nav>
+</header>
 
-        <!--basic structure for a file uploads-->
-        <form action="upload" method="post" enctype="multipart/form-data">
-            Select file to upload:
+<!--basic structure for a file uploads-->
+<form action="upload" enctype="multipart/form-data" method="post">
+    Select file to upload:
 
-            <!--name and id are used as identifiers of the file on the server side-->
-            <input type="file" name="fileToUpload">
-            <input type="submit">
-        </form>
+    <!--name and id are used as identifiers of the file on the server side-->
+    <input name="fileToUpload" type="file">
+    <input type="submit">
+</form>
+
+<button onClick="download()">Download</button>
+<button onClick="selectedDownload()">Selected Download</button>
+<br>
+
+<button onClick="writeFile()">Write File by appending 1,2,3,4,5 and stuff</button>
+<br>
+
+<button onClick="readFile()">Read File</button>
+<p>{{{read}}}</p>
 
 
-        <!-- if clicked, make a file download popup-->
-        <script>
-            //Script is local to make is easy to see
+<!-- template to show current file list-->
+<p>Current files:</p>
+<ul>
+    {{#filelist}}
+    <li>{{.}}</li>
+    {{/filelist}}
+</ul>
 
-
-            //html side
-            function download() {
-                //Has to be a separate “page”
-                //this make a URL of root/download
-                // NodeJS’s routes figure out it is to serve a file
-                // instead of html page.
-                window.location.href = "download"
-            }
-
-            function selectedDownload() {
-                //Has to be a separate “page”
-                //this make a URL of root/download
-                // NodeJS’s routes figure out it is to serve a file
-                // instead of html page.
-                window.location.href = "uploads/hidden.txt"
-            }
-        </script>
-        <button onClick="download()">Download</button>
-        <button onClick="selectedDownload()">Selected Download</button>
-        <br>
-    </main>
-    <footer>
-        <p>&copy; 2023 File Management System</p>
-    </footer>
 </body>
-
 </html>
+
+
+

@@ -7,10 +7,18 @@ let app = express();
 /*
  * SOME VARIABLE DEFINITIONS
  */
+var fileTransfer = require('./mgmt/mgmt');
+// GET mgmt.html
+app.get("/mgmt/mgmt.html", fileTransfer.runPage);
 
-
-
-
+// SERVE STATIC FILES EVERYWHERE
 app.use(express.static( __dirname));
+
+// DYNAMIC STUFF BELOW
+
+//INITIALIZATION
+fileTransfer.init(app);
+
+
 
 app.listen(8080);

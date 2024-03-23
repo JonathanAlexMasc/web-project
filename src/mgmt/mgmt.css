@@ -6,8 +6,7 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    /* Set minimum height to 100% of the viewport height */
+    min-height: 100vh; /* Set minimum height to 100% of the viewport height */
 }
 
 header {
@@ -33,18 +32,55 @@ nav ul li a {
     color: #fff;
 }
 
-main {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    flex: 1;
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    /* Add flex-grow to ensure the content takes up remaining space */
 }
 
-footer {
-    background-color: #333;
+.buttons-container {
+    display: flex; /* Flexbox container */
+    justify-content: center; /* Center align the buttons horizontally */
+    margin-top: 20px; /* Adjust margin as needed */
+}
+
+.buttons-container button {
+    margin-left: 10px;
+}
+
+input[type="file"] {
+    display: block;
+    margin-bottom: 15px;
+}
+
+input[type="submit"],
+button {
+    background-color: #4caf50;
     color: #fff;
-    text-align: center;
-    padding: 10px;
-    margin-top: auto;
-    /* Push the footer to the bottom */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover,
+button:hover {
+    background-color: #45a049;
+}
+
+p {
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 5px;
 }
