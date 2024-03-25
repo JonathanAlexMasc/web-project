@@ -26,3 +26,5 @@ function writeFile() {
 function readFile() {
     window.location.href = "read";
 }
+
+

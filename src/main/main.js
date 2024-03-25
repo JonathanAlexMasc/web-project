@@ -1,6 +1,7 @@
 /*
  * INITIAL VARIABLES
  */
+var data = [[]];
 var histories = {};
 var compID = 1;
 const addRowButton = document.getElementById('add-row');
@@ -190,6 +191,9 @@ function initializeRows() {
     updateUI();
 }
 
+function saveCurrentState() {
+    window.location.href = "storeData"
+}
 
 /*
  * ADD ROWS LISTENER

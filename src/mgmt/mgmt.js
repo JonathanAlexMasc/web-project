@@ -142,6 +142,7 @@ function init(app, urlRoot = "/") {
         res.download(path);
 
     });
+    
 }
 
 function runPage(req, res) {
