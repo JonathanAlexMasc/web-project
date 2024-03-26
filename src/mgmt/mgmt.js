@@ -1,6 +1,6 @@
 const Mustache = require('mustache');
 const fs = require("fs");
-var formidable = require('formidable');
+const formidable = require('formidable');
 const path = require("path");
 
 var hiddenFolder = "./uploads"
@@ -55,8 +55,6 @@ function init(app, urlRoot = "/") {
 
     app.get( urlRoot + "mgmt/read", function(req, res) {
         var data = getParams(req);
-        console.log(location)
-        console.log(fs.existsSync(location))
         if(fs.existsSync(location)) {
             var file = fs.readFileSync(location);
             data["read"] = file.toString().replaceAll("\n", "<br>");

@@ -173,7 +173,6 @@ function initializeRows() {
     histories = {}
 
     if (data.length == 0) {
-        console.log('here')
         data = ['Empty', 'Empty', 'Empty']
     }
 
