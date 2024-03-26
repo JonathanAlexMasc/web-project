@@ -1,4 +1,3 @@
-
 const Mustache = require('mustache');
 const fs = require("fs");
 var formidable = require('formidable');
@@ -7,25 +6,14 @@ const path = require("path");
 var hiddenFolder = "./uploads"
 var folder = "./tmp"
 var location = folder + "/temp.txt";
-function pullData(data){
 
+function pullData(data){
     //if no files yet, stop processing
     if(!fs.existsSync(folder))
         return;
 
     //template style
     data['filelist'] = fs.readdirSync(folder);
-
-    //raw html style
-    /*
-    var items = fs.readdirSync(folder);
-    var list = "<ul>";
-    for( item of items){
-        list += "<li>" + item + "</li>";
-    }
-    list += "</ul>";
-    data['filelist'] = list;
-    */
 }
 
 
@@ -135,14 +123,32 @@ function init(app, urlRoot = "/") {
 
     });
 
-
-
     app.get(  urlRoot+ "mgmt/uploads/:file", function(req, res) {
         var path = hiddenFolder + "/" + req.params.file;
         res.download(path);
 
     });
-    
+
+    app.post(urlRoot + "saveDataEndpoint", function(req, res) {
+        const data = req.body; // Assuming data is sent in the request body
+
+        const jsonString = JSON.stringify(data);
+
+        // Write data to a file named "data.json" in the hiddenFolder
+        const filePath = path.join(hiddenFolder, "data.json");
+
+        fs.writeFile(filePath, jsonString, function(err) {
+            if (err) {
+                console.error('Error saving data:', err);
+                res.status(500).send('Error saving data');
+            } else {
+                console.log('Data saved successfully');
+                res.status(200).send('Data saved successfully');
+            }
+        });
+    });
+
+
 }
 
 function runPage(req, res) {

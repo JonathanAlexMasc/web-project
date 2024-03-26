@@ -1,9 +1,11 @@
 /*
  * INITIAL VARIABLES
  */
-var data = [[]];
+
+var data = [];
 var histories = {};
 var compID = 1;
+var rowSize = 3;
 const addRowButton = document.getElementById('add-row');
 const resetButton = document.getElementById('reset');
 const allPolesButton = document.getElementById('all-poles');
@@ -105,6 +107,10 @@ function changeComponent(event) {
 
     var cmd = new UndoRedo(oldContent, newContent, componentClass);
     var selectedID = getSelectedComponentID();
+
+    // update the data array using selectedID - 1 as index
+    data[selectedID - 1] = newContent;
+
     var selectedHist = histories[selectedID];
     selectedHist.executeAction(cmd);
 }
@@ -154,45 +160,58 @@ function addListeners() {
 }
 
 function initializeRows() {
-    // Create a new row div
-    const newRow = document.createElement('div');
-    newRow.classList.add('row');
+    // Get a reference to the main content
+    const mainContent = document.getElementById('main-content');
 
-    // Create three component divs and append them to the new row
-    for (let i = 0; i < 3; i++) {
-        const newComponent = document.createElement('div');
-        newComponent.classList.add('component');
-        newComponent.textContent = 'Empty';
+    // Clear existing content
+    mainContent.innerHTML = '';
 
-        // assign ID
-        newComponent.id = compID.toString();
+    // reset ID
+    compID = 1;
 
-        // create a new history for it and add to histories map
-        histories[compID] = new History();
+    // reset histories
+    histories = {}
 
-        // increment id
-        compID = compID + 1
-
-        // add this new comp to row
-        newRow.appendChild(newComponent);
+    if (data.length == 0) {
+        console.log('here')
+        data = ['Empty', 'Empty', 'Empty']
     }
 
-    // Set the first component in the first row to be selected
-    newRow.firstElementChild.classList.add('selected');
+    for (let i = 0; i < data.length; i += rowSize) {
+        const newRow = document.createElement('div');
+        newRow.classList.add('row');
 
-    // Append the new row to the main content section
-    const mainContent = document.getElementById('main-content');
-    mainContent.appendChild(newRow);
+        // Iterate over elements in the current row
+        for (let j = i; j < i + rowSize && j < data.length; j++) {
+            const text = data[j];
+            const newComponent = document.createElement('div');
+            newComponent.classList.add('component');
+            newComponent.textContent = text;
 
-    // add listeners for each component
+            // Assign ID
+            newComponent.id = compID.toString();
+
+            // Add a history
+            histories[compID] = new History();
+
+            // Update ID
+            compID += 1;
+
+            // Add this component to the row
+            newRow.appendChild(newComponent);
+
+            // Set the first component in the first row to be selected
+            if (i === 0 && j === 0) {
+                newComponent.classList.add('selected');
+            }
+        }
+
+        // Append the new row to the main content
+        mainContent.appendChild(newRow);
+    }
+
     addListeners();
-
-    // update UI
     updateUI();
-}
-
-function saveCurrentState() {
-    window.location.href = "storeData"
 }
 
 /*
@@ -222,6 +241,9 @@ addRowButton.addEventListener('click', function() {
 
         // add this new comp to row
         newRow.appendChild(newComponent);
+
+        // add it to data also
+        data.push('Empty')
     }
 
     // Append the new row to the main content section
@@ -251,32 +273,40 @@ resetButton.addEventListener('click', function() {
     // reset histories
     histories = {}
 
-    // Set up initial content with one row of all empty components
-    const newRow = document.createElement('div');
-    newRow.classList.add('row');
+    data = ['Empty', 'Empty', 'Empty']
 
-    for (let j = 1; j <= 3; j++) {
-        const newComponent = document.createElement('div');
-        newComponent.classList.add('component');
-        newComponent.textContent = 'Empty';
+    for (let i = 0; i < data.length; i += rowSize) {
+        const newRow = document.createElement('div');
+        newRow.classList.add('row');
 
-        // assign id
-        newComponent.id = compID.toString();
+        // Iterate over elements in the current row
+        for (let j = i; j < i + rowSize && j < data.length; j++) {
+            const text = data[j];
+            const newComponent = document.createElement('div');
+            newComponent.classList.add('component');
+            newComponent.textContent = text;
 
-        // add a history
-        histories[compID] = new History();
+            // Assign ID
+            newComponent.id = compID.toString();
 
-        // update ID
-        compID += 1;
+            // Add a history
+            histories[compID] = new History();
 
-        newRow.appendChild(newComponent);
+            // Update ID
+            compID += 1;
+
+            // Add this component to the row
+            newRow.appendChild(newComponent);
+
+            // Set the first component in the first row to be selected
+            if (i === 0 && j === 0) {
+                newComponent.classList.add('selected');
+            }
+        }
+
+        // Append the new row to the main content
+        mainContent.appendChild(newRow);
     }
-
-    // Set the first component in the first row to be selected
-    newRow.firstElementChild.classList.add('selected');
-
-    // Append the new row to the main content
-    mainContent.appendChild(newRow);
 
     addListeners();
     updateUI();
@@ -298,34 +328,38 @@ allPolesButton.addEventListener('click', function () {
     // reset histories
     histories = {}
 
-    // Create two rows with all poles
-    for (let i = 0; i < 2; i++) {
+    data = ['Pole', 'Pole', 'Pole', 'Pole', 'Pole', 'Pole']
+
+    for (let i = 0; i < data.length; i += rowSize) {
         const newRow = document.createElement('div');
         newRow.classList.add('row');
 
-        for (let j = 1; j <= 3; j++) {
+        // Iterate over elements in the current row
+        for (let j = i; j < i + rowSize && j < data.length; j++) {
+            const text = data[j];
             const newComponent = document.createElement('div');
             newComponent.classList.add('component');
-            newComponent.textContent = 'Pole';
+            newComponent.textContent = text;
 
-            // assign id
+            // Assign ID
             newComponent.id = compID.toString();
 
-            // add a history
+            // Add a history
             histories[compID] = new History();
 
-            // update ID
+            // Update ID
             compID += 1;
 
-            // add this component to the row
+            // Add this component to the row
             newRow.appendChild(newComponent);
+
+            // Set the first component in the first row to be selected
+            if (i === 0 && j === 0) {
+                newComponent.classList.add('selected');
+            }
         }
 
-        // Set the first component in the first row to be selected
-        if (i === 0) {
-            newRow.firstElementChild.classList.add('selected');
-        }
-
+        // Append the new row to the main content
         mainContent.appendChild(newRow);
     }
 
@@ -350,18 +384,18 @@ mixedButton.addEventListener('click', function () {
     histories = {}
 
     // mixed arr
-    const mixedArray = [['Empty', 'Empty', 'Pole'],
-        ['House', 'Empty', 'House'],
-        ['Pole', 'House', 'Pole'],
+    data = ['Empty', 'Empty', 'Pole',
+        'House', 'Empty', 'House',
+        'Pole', 'House', 'Pole',
     ];
 
-    // Create rows using custom 2D array values
-    mixedArray.forEach((rowArray, rowIndex) => {
+    for (let i = 0; i < data.length; i += rowSize) {
         const newRow = document.createElement('div');
         newRow.classList.add('row');
 
-        // Traverse through the row array
-        rowArray.forEach((text, columnIndex) => {
+        // Iterate over elements in the current row
+        for (let j = i; j < i + rowSize && j < data.length; j++) {
+            const text = data[j];
             const newComponent = document.createElement('div');
             newComponent.classList.add('component');
             newComponent.textContent = text;
@@ -379,18 +413,46 @@ mixedButton.addEventListener('click', function () {
             newRow.appendChild(newComponent);
 
             // Set the first component in the first row to be selected
-            if (rowIndex === 0 && columnIndex === 0) {
+            if (i === 0 && j === 0) {
                 newComponent.classList.add('selected');
             }
-        });
+        }
 
         // Append the new row to the main content
         mainContent.appendChild(newRow);
-    })
+    }
 
     addListeners();
     updateUI();
 });
+
+function saveCurrentState() {
+    const jsonObject = {};
+
+    data.forEach((string, index) => {
+        jsonObject[`string${index + 1}`] = string;
+    })
+
+    // Make a POST request to your server endpoint
+    fetch('/saveDataEndpoint', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(jsonObject),
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // Handle success response from server
+            console.log('Data saved successfully');
+        })
+        .catch(error => {
+            // Handle error
+            console.error('There was a problem saving the data:', error);
+        });
+}
 
 /*
  * ENTRY POINT FOR THIS FILE
@@ -402,5 +464,26 @@ window.onload = function () {
     document.getElementById("undo").onclick = undo;
     document.getElementById("redo").onclick = redo;
 
-    initializeRows();
+    // fetch the data from the data.json file
+    fetch('../mgmt/uploads/data.json').then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        else {
+            return response.json();
+        }
+    }).then(jsonData => {
+        if (jsonData) {
+            // Assign the result to the data variable
+            data = Object.values(jsonData);
+            initializeRows(); // Call initializeRows after data is fetched
+        }
+        else {
+            console.error('No data fetched');
+            return null;
+        }
+    }).catch(error => {
+        console.error('Error fetching data:', error);
+        return null;
+    });
 }
