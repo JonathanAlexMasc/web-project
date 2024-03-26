@@ -6,6 +6,7 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 0;
+    background-color: #e6e6c6;
 }
 
 header {
@@ -32,21 +33,20 @@ nav ul li a {
 }
 
 #main-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
+    margin: auto;
+    border: 3px solid black; /* Add a border */
 }
+
 
 .row {
     display: flex;
-    margin-bottom: 20px;
+    margin: 10px;
 }
 
 .component {
     width: 100px;
     height: 100px;
-    margin-right: 10px;
+    margin: 10px;
     background-color: lightgray;
     border: 1px solid black;
     display: flex;
@@ -59,10 +59,20 @@ nav ul li a {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 #sidebar button {
     margin-right: 10px;
     /* Add spacing between buttons */
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    /* Push the footer to the bottom */
 }

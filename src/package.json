@@ -2,11 +2,11 @@
   "name": "web-project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "run": "node index.js"
+    "start": "node server.js",
+    "run": "node server.js"
   },
   "author": "Jonathan Mascarenhas",
   "license": "ISC",
