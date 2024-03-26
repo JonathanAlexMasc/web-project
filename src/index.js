@@ -1,26 +1,4 @@
-let http = require('http');
-let fs = require('fs');
-let pathModule = require('path');
-let express = require('express');
-let app = express();
-
-/*
- * SOME VARIABLE DEFINITIONS
- */
-var fileTransfer = require('./mgmt/mgmt');
-
-// GET mgmt.html
-app.get("/mgmt/mgmt.html", fileTransfer.runPage);
-
-// Middleware for parsing JSON bodies
-app.use(express.json());
-
-// SERVE STATIC FILES EVERYWHERE
-app.use(express.static( __dirname));
-
-// DYNAMIC STUFF BELOW
-
-//INITIALIZATION
-fileTransfer.init(app);
-
-app.listen(8080);
+// Function to redirect after 5 seconds
+setTimeout(function(){
+    window.location.href = "./main/main.html"; // Change "new-page.html" to the URL of the page you want to redirect to
+}, 5000); // 5000 milliseconds = 5 seconds
