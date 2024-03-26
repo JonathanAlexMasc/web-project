@@ -12,6 +12,9 @@ var fileTransfer = require('./mgmt/mgmt');
 // GET mgmt.html
 app.get("/mgmt/mgmt.html", fileTransfer.runPage);
 
+// Middleware for parsing JSON bodies
+app.use(express.json());
+
 // SERVE STATIC FILES EVERYWHERE
 app.use(express.static( __dirname));
 
@@ -19,7 +22,5 @@ app.use(express.static( __dirname));
 
 //INITIALIZATION
 fileTransfer.init(app);
-
-
 
 app.listen(8080);
