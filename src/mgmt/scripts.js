@@ -34,3 +34,41 @@ function deleteFile() {
         });
 }
 
+// Function to handle file selection
+function handleFileSelect(event) {
+    event.preventDefault();
+    const files = event.dataTransfer.files;
+
+    // Trigger file upload
+    uploadFiles(files);
+}
+
+// Function to upload files
+function uploadFiles(files) {
+    const fileInput = document.getElementById('fileInput');
+    fileInput.files = files;
+
+    // Trigger the form submission
+    document.querySelector('form').submit();
+
+    // After the form submission, make an AJAX request to /mgmt/upload endpoint
+    window.location.href = "/mgmt/upload";
+}
+
+// Add event listeners for drag and drop
+const dragDropArea = document.getElementById('dragDropArea');
+dragDropArea.addEventListener('dragover', function(event) {
+    event.preventDefault();
+    dragDropArea.classList.add('drag-over');
+});
+dragDropArea.addEventListener('dragleave', function(event) {
+    event.preventDefault();
+    dragDropArea.classList.remove('drag-over');
+});
+
+dragDropArea.addEventListener('drop', handleFileSelect);
+
+// Alternatively, clicking on the drag and drop area should trigger file selection
+dragDropArea.addEventListener('click', function() {
+    document.getElementById('fileInput').click();
+});

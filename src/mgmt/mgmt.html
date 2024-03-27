@@ -21,14 +21,11 @@
     </header>
 
     <div class="form-upload">
-        <!--basic structure for a file uploads-->
-        <form action="upload" enctype="multipart/form-data" method="post">
-            Select file to upload:
-
-            <!--name and id are used as identifiers of the file on the server side-->
-            <input name="fileToUpload" type="file">
-            <input type="submit">
-        </form>
+        <!-- Drag and drop area -->
+        <div class="drag-drop-area" id="dragDropArea">
+            <p>Drag and drop files here, or click to select files</p>
+            <input type="file" id="fileInput" multiple style="display: none;">
+        </div>
     </div>
 
     <div class="file-display">
