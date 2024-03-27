@@ -32,12 +32,13 @@
     </div>
 
     <div class="file-display">
-        <h4>File currently on Render's server!</h4>
+        <h4>File currently on Render's server! - AutoSave</h4>
         <ul class="list-files">
             {{#filelist}}
             <li>
                 <span>{{.}}</span>
                 <button onClick="readFile()">Load File</button>
+                <button onClick="writeFile()">Append Text</button>
                 <button onClick="download()">Download File</button>
                 <button id="deleteFileButton" onclick="deleteFile()">Delete File</button>
             </li>

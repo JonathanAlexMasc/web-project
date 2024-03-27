@@ -80,6 +80,12 @@ a:hover {
     margin: 20px; /* Add margin for spacing */
 }
 
+.app-gen {
+    text-align: center;
+    margin: 0 auto;
+    width: 50%; /* Adjust this width as needed */
+    padding: 20px;
+}
 
 footer {
     background-color: #333;

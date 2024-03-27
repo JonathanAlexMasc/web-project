@@ -1,10 +1,10 @@
 const Mustache = require('mustache');
 const fs = require("fs");
-const formidable = require('formidable');
+var formidable = require('formidable');
 const path = require("path");
 
-var hiddenFolder = "./uploads"
-var folder = "./tmp"
+var hiddenFolder = "./uploads";
+var folder = "./tmp";
 var location = folder + "/temp.txt";
 
 function pullData(data){
@@ -75,6 +75,12 @@ function init(app, urlRoot = "/") {
     hiddenFolder = path.join(__dirname, hiddenFolder);
     location = folder + '/temp.txt';
 
+    app.get(  urlRoot+ "mgmt/uploads/:file", function(req, res) {
+        var path = hiddenFolder + "/" + req.params.name;
+        res.download(path);
+
+    });
+
     app.delete(urlRoot + "mgmt/delete/:filename", deleteFile);
 
     app.get( urlRoot + "mgmt/read", function(req, res) {
@@ -103,14 +109,16 @@ function init(app, urlRoot = "/") {
         content += "\n" + data["stuff"] + "\n";
         content += data["more"] + "\n";
 
+        var uploadLocation = location;
+
         //make the file is not already there, or append if it is
-        if(!fs.existsSync(location)) {
-            fs.writeFile(location, content, function (err) {
+        if(!fs.existsSync(uploadLocation)) {
+            fs.writeFile(uploadLocation, content, function (err) {
                 if (err) throw err;
             });
         }
         else {
-            fs.appendFile(location, content, function (err) {
+            fs.appendFile(uploadLocation, content, function (err) {
                 if (err) throw err;
             });
         }
@@ -142,12 +150,6 @@ function init(app, urlRoot = "/") {
             }
             res.redirect(urlRoot + "mgmt/mgmt.html");
         });
-
-    });
-
-    app.get(  urlRoot+ "mgmt/uploads/:file", function(req, res) {
-        var path = hiddenFolder + "/" + req.params.file;
-        res.download(path);
 
     });
 

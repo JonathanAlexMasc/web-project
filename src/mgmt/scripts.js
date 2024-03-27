@@ -5,6 +5,10 @@ function download() {
     window.location.href = "download";
 }
 
+function selectedDownload() {
+    window.location.href = "uploads/random.txt"
+}
+
 // Function to trigger reading a file and output to the page
 function readFile() {
     window.location.href = "read";
@@ -34,3 +38,20 @@ function deleteFile() {
         });
 }
 
+function writeFile() {
+    var xhttp = new XMLHttpRequest(); //say we want a new http connection
+
+    //wait for a good connection
+    xhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+
+        }
+    };
+
+    //open connection with GET protocal
+    xhttp.open(  "GET", "write?write=1&stuff=Hello World&more=Have a wonderful day!", true);
+
+    //commit request
+    xhttp.send();
+
+}
