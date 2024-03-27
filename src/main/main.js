@@ -96,11 +96,11 @@ class UndoRedo {
 }
 
 // Map UndoRedos onto buttons
-function changeComponent(event) {
+function changeComponent() {
     var componentClass = 'selected';
     var oldContent = document.querySelector('.' + componentClass).innerHTML;
     var currentContent = oldContent.trim(); // Trim whitespace
-    var newContent = '';
+    var newContent;
 
     // Cycle between House, Pole, and Empty
     // Cycle between House, Pole, Tree, and Empty

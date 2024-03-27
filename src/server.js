@@ -1,6 +1,6 @@
-let http = require('http');
-let fs = require('fs');
-let pathModule = require('path');
+require('http');
+require('fs');
+require('path');
 let express = require('express');
 let app = express();
 
