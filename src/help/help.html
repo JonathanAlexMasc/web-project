@@ -65,17 +65,13 @@
             <h3>The File Management Page</h3>
             <p>
                 <b>Buttons</b>
-                <li>Change Component - This rotates an element between House, Pole, and Empty.</li>
-                <li>Add Row - Adds a row of three empty elements.</li>
-                <li>Reset - Changes the content to its default setting of three Empty elements.</li>
-                <li>All Poles - Resets the content and converts the first two rows to all poles.</li>
-                <li>Undo - Undoes the state to its former state.</li>
-                <li>Redo - Redoes the state if an undo previously took place.</li>
+                <li>Choose File - Let's you choose a file to upload.</li>
+                <li>Submit - Submit the file to the server.</li>
+                <li>Load - Load the contents of the file into the file management page.</li>
+                <li>Download - Download the file to your local machine.</li>
             </p>
             <p>
-                Below the buttons we have the elements that make up the custom cat tree, and these elements are
-                encompassed by a border that grows and shrinks with the size of the elements inside it. These elements
-                all make up the main content/the tree itself.
+                There is a box below the buttons that displays the content to the user when they click on load.
             </p>
 
         </section>
@@ -101,8 +97,13 @@
         <section id="program-usage">
             <h2>Program Usage</h2>
             <p>
-                I don't believe I have any bugs to report, as for the use of my program, it is
-                intuitive and tries to follow the requirements for this project as closely as possible.
+                I have tried to follow the requirements for this project as closely as possible.
+                <br>
+                <br>
+                <b>File Management</b> - From the checklist I have noticed that I need to save the file... My program
+                saved an uploaded file automatically be replacing the existing file. There is always going to be a file on the
+                server unless manually deleted by going into the tmp folder. The name of any uploaded file gets renamed to
+                temp.txt and gets stored on the render server.
                 <br>
                 <br>
                 <b>Note</b> :  have used GitHub instead of GitLab due to an authentication issue, for which I have received
