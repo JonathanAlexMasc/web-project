@@ -27,9 +27,15 @@ nav ul li {
     margin-right: 20px;
 }
 
-nav ul li a {
-    text-decoration: none;
-    color: #fff;
+a {
+    text-decoration: none; /* Remove default underline */
+    color: white; /* Set link color */
+    transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+a:hover {
+    color: blue; /* Change color on hover */
+    text-decoration: underline; /* Add underline on hover */
 }
 
 #main-content {

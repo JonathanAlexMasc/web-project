@@ -9,39 +9,114 @@
 </head>
 
 <body>
-    <header>
-        <h1>Help</h1>
+<header>
+    <h1>Help</h1>
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../main/main.html">Main Page</a></li>
+            <li><a href="../mgmt/mgmt.html">File Management</a></li>
+            <li><a href="help.html">Help/Grading Aid</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <!-- Links to sections -->
+    <div class="links">
         <nav>
             <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../main/main.html">Main Page</a></li>
-                <li><a href="../mgmt/mgmt.html">File Management</a></li>
-                <li><a href="help.html">Help/Grading Aid</a></li>
+                <li><a href="#description">Description</a></li>
+                <li><a href="#checklist">Checklist</a></li>
+                <li><a href="#css-modifications">CSS Modifications</a></li>
+                <li><a href="#program-usage">Program Usage</a></li>
             </ul>
         </nav>
-    </header>
-    <main>
+    </div>
+
+    <div class="sections">
+        <!-- Sections -->
         <section id="description">
             <h2>Description</h2>
-            <!-- Your project description goes here -->
+            <h3>Name - Jonathan Mascarenhas</h3>
+            <h3>Course - CSC 468. Section - M01</h3>
+            <h3>
+                The custom cat tree creator is a web application that uses HTML, CSS,
+                JavaScript, nodeJS along with a couple of other third party libraries such as
+                formidable, express, mustache, etc.
+                It consists of two main features - the main page and the file management page,
+                both of which are described below.
+            </h3>
+            <h3>The Main Page</h3>
+            <p>
+                <b>Buttons</b>
+                <li>Change Component - This rotates an element between House, Pole, and Empty.</li>
+                <li>Add Row - Adds a row of three empty elements.</li>
+                <li>Reset - Changes the content to its default setting of three Empty elements.</li>
+                <li>All Poles - Resets the content and converts the first two rows to all poles.</li>
+                <li>Undo - Undoes the state to its former state.</li>
+                <li>Redo - Redoes the state if an undo previously took place.</li>
+            </p>
+            <p>
+                Below the buttons we have the elements that make up the custom cat tree, and these elements are
+                encompassed by a border that grows and shrinks with the size of the elements inside it. These elements
+                all make up the main content/the tree itself.
+            </p>
+
+            <h3>The File Management Page</h3>
+            <p>
+                <b>Buttons</b>
+                <li>Change Component - This rotates an element between House, Pole, and Empty.</li>
+                <li>Add Row - Adds a row of three empty elements.</li>
+                <li>Reset - Changes the content to its default setting of three Empty elements.</li>
+                <li>All Poles - Resets the content and converts the first two rows to all poles.</li>
+                <li>Undo - Undoes the state to its former state.</li>
+                <li>Redo - Redoes the state if an undo previously took place.</li>
+            </p>
+            <p>
+                Below the buttons we have the elements that make up the custom cat tree, and these elements are
+                encompassed by a border that grows and shrinks with the size of the elements inside it. These elements
+                all make up the main content/the tree itself.
+            </p>
+
         </section>
+
         <section id="checklist">
             <h2>Checklist</h2>
-            <!-- Your project checklist goes here -->
+            <p>
+                I will have submitted my checklist as a text file to the project dropbox. Please check it for the render URL.
+            </p>
         </section>
+
         <section id="css-modifications">
             <h2>CSS Modifications</h2>
-            <!-- Describe the CSS modifications made in your project -->
+            <li><b>Background</b> - Have a background color of light olive on all of my pages that is not white. This can be verified visually.</li>
+            <li><a href="../index.html#requirement2"><b>Custom CSS header</b></a> - There is a custom CSS header in all pages.</li>
+            <li><a href="../index.html#requirement3"><b>Background color rule on navbar</b></a> - Dark grey background on the navbar.</li>
+            <li><b>Custom 'a' tag rule</b> - There is a custom a tag rule that converts links to blue on hover. This can be verified by hovering over links
+            in the navbar as in this section links overridden due to white background.</li>
+            <li><a href="../main/main.html#main-content"><b>Border</b></a> - Yes there is a border that expands and shrinks with main content.</li>
+            <li><b>Header in help page font styles</b> - Done. Gave them an arial font style with different font sizes. This can be verified visually.</li>
         </section>
+
         <section id="program-usage">
             <h2>Program Usage</h2>
-            <!-- Provide instructions on how to use your project -->
+            <p>
+                I don't believe I have any bugs to report, as for the use of my program, it is
+                intuitive and tries to follow the requirements for this project as closely as possible.
+                <br>
+                <br>
+                <b>Note</b> :  have used GitHub instead of GitLab due to an authentication issue, for which I have received
+                a tentative ok from Dr. Rebenitsch. I aim to fix this issue post finishing my project submission
+                if I am not able to before.
+            </p>
         </section>
         <!-- Add additional main headings sections here -->
-    </main>
-    <footer>
-        <p>&copy; 2023 If I fits, I sits - Custom Cat Tree Creator</p>
-    </footer>
+    </div>
+
+</main>
+<footer>
+    <p>&copy; 2023 If I fits, I sits - Custom Cat Tree Creator</p>
+</footer>
 </body>
 
 </html>
