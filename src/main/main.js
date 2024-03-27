@@ -103,13 +103,17 @@ function changeComponent(event) {
     var newContent = '';
 
     // Cycle between House, Pole, and Empty
+    // Cycle between House, Pole, Tree, and Empty
     if (currentContent === 'House') {
         newContent = 'Pole';
     } else if (currentContent === 'Pole') {
+        newContent = 'Tree';
+    } else if (currentContent === 'Tree') {
         newContent = 'Empty';
     } else { // Assume currentContent is Empty or any other value
         newContent = 'House';
     }
+
 
     var cmd = new UndoRedo(oldContent, newContent, componentClass);
     var selectedID = getSelectedComponentID();

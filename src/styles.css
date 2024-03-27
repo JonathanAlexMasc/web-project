@@ -1,10 +1,18 @@
+@keyframes dynamicBackground {
+    0% { background-color: #B5A642; }
+    25% { background-color: #B5AF42; }
+    50% { background-color: #9AB542; }
+    75% { background-color: #769A42; }
+    100% { background-color: #5D8B3E; }
+}
+
 body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
     padding: 0;
-    background-color: #e6e6c6;
+    animation: dynamicBackground 5s infinite alternate;
 }
 
 
