@@ -10,6 +10,7 @@ const addRowButton = document.getElementById('add-row');
 const resetButton = document.getElementById('reset');
 const allPolesButton = document.getElementById('all-poles');
 const mixedButton = document.getElementById('mixed');
+const deleteRow = document.getElementById('delete-row');
 
 // JavaScript Document
 // Helper class to handle the current location in the undo/redo list
@@ -261,6 +262,37 @@ addRowButton.addEventListener('click', function() {
 
     // update UI
     updateUI();
+});
+
+deleteRow.addEventListener('click', () => {
+    // Get a reference to the main content
+    const mainContent = document.getElementById('main-content');
+
+    // Get all rows
+    const rows = mainContent.querySelectorAll('.row');
+
+    // Check if there are rows to delete
+    if (rows.length > 1) {
+        // Get the last row
+        const lastRow = rows[rows.length - 1];
+
+        // Remove the last row from the DOM
+        mainContent.removeChild(lastRow);
+
+        var newID = compID - 3;
+
+        while (compID >= newID) {
+            compID = compID - 1;
+            histories[compID] = null;
+        }
+
+        data.splice(-3);
+
+    } else {
+        console.log("No rows to delete.");
+    }
+
+    addListeners();
 });
 
 /*
