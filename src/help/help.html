@@ -29,6 +29,7 @@
                 <li><a href="#checklist">Checklist</a></li>
                 <li><a href="#css-modifications">CSS Modifications</a></li>
                 <li><a href="#program-usage">Program Usage</a></li>
+                <li><a href="#extensions">Extensions</a></li>
             </ul>
         </nav>
     </div>
@@ -55,6 +56,8 @@
                 <li>All Poles - Resets the content and converts the first two rows to all poles.</li>
                 <li>Undo - Undoes the state to its former state.</li>
                 <li>Redo - Redoes the state if an undo previously took place.</li>
+                <li>Save - Saves the main content to server. Does not save Undo/Redo history.</li>
+                <li>Delete - Deletes the last row in main content.</li>
             </ul>
             <p>
                 Below the buttons we have the elements that make up the custom cat tree, and these elements are
@@ -99,29 +102,23 @@
         </section>
 
         <section id="program-usage">
-            <h2>Program Usage</h2>
+            <h2>Program Usage and Bugs</h2>
             <p>
-                I have tried to follow the requirements for this project as closely as possible.
+                I have tested the program thoroughly for bugs, and have been unable to find any.
                 <br>
                 <br>
-                <b>File Management</b> - From the checklist I have noticed that I need to save the file... My program
-                saved an uploaded file automatically be replacing the existing file. There is always going to be a file on the
-                server unless manually deleted by going into the tmp folder. The name of any uploaded file gets renamed to
-                temp.txt and gets stored on the render server.
-                <br>
-                <br>
-                <b>Note</b> :  have used GitHub instead of GitLab due to an authentication issue, for which I have received
+                <b>Note</b> : I have used GitHub instead of GitLab due to an authentication issue, for which I have received
                 a tentative ok from Dr. Rebenitsch. I aim to fix this issue post finishing my project submission
                 if I am not able to before.
             </p>
         </section>
 
         <section id="extensions">
-            <h2>Extensions</h2>
+            <h2>Extensions (30 points)</h2>
             <ol>
                 <li><a href="../index.html"><b>Splash Page</b></a> - Splash page with a timer of 5s that re-routes to the main page.</li>
                 <li><a href="../index.html"><b>1.a - Loading Circle</b></a> - There is a circle and an overlay on the slash page during loading. I used multiple sources.</li>
-                <li><a href="../index.html"><b>1.b - Fancy Background</b></a> - Dark grey background on the navbar.</li>
+                <li><a href="../index.html"><b>1.b - Fancy Background</b></a> - The splash page has a background that transitions between several colors.</li>
                 <li><a href="../main/main.html"><b>2.b - Delete Row Button</b></a> - Button that deletes the last row of the cat tree.</li>
                 <li><a href="../mgmt/mgmt.html"><b>2.g - Delete File from Server</b></a> - Delete file from server.</li>
                 <li><a href="../main/main.html"><b>3.a - 3+ components available</b></a> - Two additional components <b>Thorn</b> and <b>Bush</b>.</li>
