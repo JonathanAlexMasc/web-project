@@ -5,7 +5,6 @@ const path = require("path");
 
 var hiddenFolder = "./uploads"
 var folder = "./tmp"
-var location = folder + "/temp.txt";
 
 function pullData(data){
     //if no files yet, stop processing
@@ -32,6 +31,7 @@ function load(req, res, params){
 
     try{
         let url =  path.join(__dirname,"mgmt.html");
+        console.log('url', url);
         let content = fs.readFileSync(url);
         var output = Mustache.render(content.toString(), data);
 
@@ -42,30 +42,8 @@ function load(req, res, params){
         //data dump
         console.log(err);
     }
+
     res.end();
-}
-
-function deleteFile(req, res) {
-    const filename = req.params.filename; // Assuming filename is passed as a parameter in the URL
-
-    const filePath = path.join(folder, filename); // Constructing the file path
-
-    // Check if the file exists
-    if (fs.existsSync(filePath)) {
-        // Delete the file
-        fs.unlink(filePath, (err) => {
-            if (err) {
-                console.error('Error deleting file:', err);
-                res.status(500).send('Error deleting file');
-            } else {
-                console.log('File deleted successfully:', filename);
-                res.status(200).send('File deleted successfully');
-            }
-        });
-    } else {
-        // If the file doesn't exist, return an error response
-        res.status(404).send('File not found');
-    }
 }
 
 //move mapping out of server call to app.get
@@ -73,22 +51,42 @@ function init(app, urlRoot = "/") {
     //override default location
     folder = path.join(__dirname, folder);
     hiddenFolder = path.join(__dirname, hiddenFolder);
-    location = folder + '/temp.txt';
 
-    app.delete(urlRoot + "mgmt/delete/:filename", deleteFile);
+    app.delete(urlRoot + "mgmt/delete/:filename", function (req, res) {
+        const filename = req.params.filename; // Assuming filename is passed as a parameter in the URL
 
-    app.get( urlRoot + "mgmt/read", function(req, res) {
+        const filePath = path.join(folder, filename); // Constructing the file path
+
+        // Check if the file exists
+        if (fs.existsSync(filePath)) {
+            // Delete the file
+            fs.unlink(filePath, (err) => {
+                if (err) {
+                    console.error('Error deleting file:', err);
+                    res.status(500).send('Error deleting file');
+                } else {
+                    console.log('File deleted successfully:', filename);
+                    res.status(200).send('File deleted successfully');
+                }
+            });
+        } else {
+            // If the file doesn't exist, return an error response
+            res.status(404).send('File not found');
+        }
+    });
+
+    app.get( urlRoot + "mgmt/read/:filename", function(req, res) {
+        var location = path.join(folder, req.params.filename);
         var data = getParams(req);
         if(fs.existsSync(location)) {
             var file = fs.readFileSync(location);
             data["read"] = file.toString().replaceAll("\n", "<br>");
         }
-
         load(req,res, data);
     });
 
-    app.get(  urlRoot + "mgmt/download", function(req, res) {
-        var path = location;
+    app.get(  urlRoot + "mgmt/download/:filename", function(req, res) {
+        var path = path.join(folder, req.params.filename);
         var nameOfDownloadedFile = "temp.txt";
 
         res.download(path, nameOfDownloadedFile);
@@ -131,7 +129,7 @@ function init(app, urlRoot = "/") {
                 console.log(err)
             } else {
                 var oldpath = files.fileToUpload[0].filepath;
-                var newpath = folder + "/" + "temp.txt";
+                var newpath = folder + "/" + files.fileToUpload[0].originalFilename;
                 fs.rename(oldpath, newpath, function(err) {
                     if (err) {
                         console.log(err);

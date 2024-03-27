@@ -37,9 +37,9 @@
             {{#filelist}}
             <li>
                 <span>{{.}}</span>
-                <button onClick="readFile()">Load File</button>
-                <button onClick="download()">Download File</button>
-                <button id="deleteFileButton" onclick="deleteFile()">Delete File</button>
+                <button onClick="readFile('{{.}}')">Load File</button>
+                <button onClick="download('{{.}}')">Download File</button>
+                <button id="deleteFileButton" onclick="deleteFile('{{.}}')">Delete File</button>
             </li>
             {{/filelist}}
         </ul>
