@@ -13,6 +13,8 @@ const mixedButton = document.getElementById('mixed');
 
 // JavaScript Document
 // Helper class to handle the current location in the undo/redo list
+
+// GRADING: MANAGE
 class History {
     constructor() {
         this.UndoRedos = [];
@@ -62,9 +64,12 @@ class History {
     }
 }
 
+
 // Concrete UndoRedo class. Since we have undo and redo, we must have
 // an "action" (exec) function and an undo
 // Ideally, this should forward these calls onto the class that does the task
+
+// GRADING: COMMAND
 class UndoRedo {
     constructor(oldContent, newContent, componentClass) {
         this.oldContent = oldContent;
@@ -112,6 +117,8 @@ function changeComponent(event) {
     data[selectedID - 1] = newContent;
 
     var selectedHist = histories[selectedID];
+
+    // GRADING: ACTION
     selectedHist.executeAction(cmd);
 }
 
