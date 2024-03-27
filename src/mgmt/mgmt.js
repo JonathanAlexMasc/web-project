@@ -45,6 +45,28 @@ function load(req, res, params){
     res.end();
 }
 
+function deleteFile(req, res) {
+    const filename = req.params.filename; // Assuming filename is passed as a parameter in the URL
+
+    const filePath = path.join(folder, filename); // Constructing the file path
+
+    // Check if the file exists
+    if (fs.existsSync(filePath)) {
+        // Delete the file
+        fs.unlink(filePath, (err) => {
+            if (err) {
+                console.error('Error deleting file:', err);
+                res.status(500).send('Error deleting file');
+            } else {
+                console.log('File deleted successfully:', filename);
+                res.status(200).send('File deleted successfully');
+            }
+        });
+    } else {
+        // If the file doesn't exist, return an error response
+        res.status(404).send('File not found');
+    }
+}
 
 //move mapping out of server call to app.get
 function init(app, urlRoot = "/") {
@@ -52,6 +74,8 @@ function init(app, urlRoot = "/") {
     folder = path.join(__dirname, folder);
     hiddenFolder = path.join(__dirname, hiddenFolder);
     location = folder + '/temp.txt';
+
+    app.delete(urlRoot + "mgmt/delete/:filename", deleteFile);
 
     app.get( urlRoot + "mgmt/read", function(req, res) {
         var data = getParams(req);
