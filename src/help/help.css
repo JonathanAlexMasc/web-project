@@ -16,6 +16,17 @@ header {
     text-align: center;
 }
 
+a {
+    text-decoration: none; /* Remove default underline */
+    color: white; /* Set link color */
+    transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+a:hover {
+    color: blue; /* Change color on hover */
+    text-decoration: underline; /* Add underline on hover */
+}
+
 nav ul {
     list-style-type: none;
     margin: 0;
@@ -27,17 +38,152 @@ nav ul li {
     margin-right: 20px;
 }
 
-nav ul li a {
-    text-decoration: none;
-    color: #fff;
+
+.links {
+    padding: 10px;
+    margin: 30px;
+    background: #333;
+}
+
+/*CSS for links inside the links class */
+.links nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.links nav ul li {
+    display: block; /* Change display to block */
+    margin-bottom: 10px; /* Add margin between each link */
 }
 
 main {
-    max-width: 800px;
+    width: 100%;
     margin: 0 auto;
-    padding: 20px;
     flex: 1;
 }
+
+.sections {
+    margin: 30px;
+}
+
+/* CSS for the sections */
+#description,
+#checklist,
+#css-modifications,
+#program-usage {
+    text-align: left;
+}
+
+
+/**CSS for the description */
+#description {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#description h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#description h3 {
+    font-size: 20px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+#description p {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+#description li {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+/* CHECKLIST */
+#checklist {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/* CSS for the CSS Modifications section */
+#css-modifications {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#css-modifications h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#css-modifications h3 {
+    font-size: 20px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+#css-modifications p {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+#css-modifications li {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+#css-modifications li a{
+    font-size: 16px;
+    color: black;
+    margin-bottom: 5px;
+}
+
+/* CSS for the Program Usage section */
+#program-usage {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#program-usage h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#program-usage p {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+
 
 footer {
     background-color: #333;
@@ -46,4 +192,18 @@ footer {
     padding: 10px;
     margin-top: auto;
     /* Push the footer to the bottom */
+}
+
+/* CSS for headings */
+h1, h2, h3 {
+    font-family: Arial, sans-serif; /* Choose your desired font family */
+    font-weight: bold; /* Adjust font weight as needed */
+}
+
+h2 {
+    font-size: 24px; /* Adjust the font size for h2 */
+}
+
+h3 {
+    font-size: 20px; /* Adjust the font size for h3 */
 }
