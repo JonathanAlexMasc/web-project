@@ -1,24 +1,38 @@
-In Curtorim's embrace, where palm trees sway,
-Whispers of the past in the air, they play.
-In Goa's heart, a gem of rich lore,
-Curtorim's essence, forever to adore.
+____ 	Pulled the most recent unit tests at submission time, and enure they still pass 
+____	    All grading tags added if the tier was reached
 
-Amidst verdant fields and rivers that gleam,
-Curtorim's charm, like a vivid dream.
-Mango groves dance in the golden light,
-Painting a canvas of pure delight.
 
-In quaint streets, stories old and new,
-Echoes of joy, tales woven true.
-From ancient temples to churches grand,
-Curtorim's heritage, a treasure trove of land.
+Tier 1: Model		42
+____	Unit Tests all pass
 
-The aroma of spices, the taste of the sea,
-In Curtorim's essence, souls wander free.
-With every sunset, a serenade divine,
-In Curtorim's embrace, hearts intertwine.
+Tier 2: Connect Views		16
+____	Unit Tests all pass
 
-Oh, Curtorim, in Goa's gentle embrace,
-Your beauty and grace, time cannot erase.
-Forever etched in memories, a timeless glow,
-Curtorim's spirit, in poetry, will forever flow.
+Tier 3a: State Machine/Event Rules *	36
+____	Framework there	
+____	Unit Tests all pass
+
+Tier 3b: Floating Action		18
+____	All buttons there 	
+____	Icons set and distinguishable 
+____	Opens/closes properly 
+____	Player color updated. 
+
+Tier 3c: Layout **	(-50% each line if fails in on orientation)	26
+____	Custom’s View’s aspect ratio constant	
+____	Relative size of objects in view maintained 
+____	Works in required screen sizes 
+
+Tier 3d: Rotation		20
+____	Required state saved on rotation 
+	
+Tier 3e: Unit Test		10
+____	Test there	
+____	Updated all values to support check	
+____	Triggered rotation	
+____	Checked all values after rotation (does NOT require passing since those points are in 3d)
+
+Tier 4: Extensions		30
+Extension 1: <number> <points> <name>: <how to test/find if applicable>
+Extension 2: <number> <points> <name>: <how to test/find if applicable>
+etc
